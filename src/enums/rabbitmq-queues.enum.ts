@@ -1,0 +1,4 @@
+export enum RabbitMqQueues {
+    RESPONSE_QUEUE = 'RESPONSE_QUEUE',
+    VALIDATE_USER_SESSION = 'VALIDATE_USER_SESSION',
+};
