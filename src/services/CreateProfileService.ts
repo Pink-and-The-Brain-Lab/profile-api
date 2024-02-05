@@ -1,27 +1,22 @@
 import { AppDataSource } from "../data-source";
-import User from "../models/user.model";
-import AppError from "../errors/AppError";
-import { compare } from "bcryptjs";
-import { ISignin } from "../routes/interfaces/signin.interface";
 import { RabbitMqMessagesProducerService } from "./RabbitMqMessagesProducerService";
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
-import { IGenerateSession } from "../routes/interfaces/generate-session.inteface";
+import { IProfile } from "../routes/interfaces/proifle.inteface";
+import Profile from "../models/profile.model";
 
-class SigninService {
-    public async execute({ email, password, keepLoggedIn }: ISignin) {
-        const userRepository = AppDataSource.getRepository(User);
-        const user = await userRepository.findOneBy({ email });
-        if (!user || !user.validated) throw new AppError('API_ERRORS.INCORRECT_EMAIL_PASSWORD_COMBINATION', 401);
-        const passwordMatched = await compare(password, user.password);
-        if (!passwordMatched) throw new AppError('API_ERRORS.INCORRECT_EMAIL_PASSWORD_COMBINATION', 401);
+class CreateProfileService {
+    public async execute(userProfile: IProfile) {
+        const profileRepository = AppDataSource.getRepository(Profile);
+        const profile = profileRepository.create({ ...userProfile });
+        await profileRepository.save(profile);
         const rabbitMqService = new RabbitMqMessagesProducerService();
-        const tokenApiResponse = await rabbitMqService.sendDataToAPI<IGenerateSession>(
-            { userId: user.id, keepLoggedIn },
-            RabbitMqQueues.CREATE_SESSION
+        const updateUserApiResponse = await rabbitMqService.sendDataToAPI<string>(
+            profile.id,
+            RabbitMqQueues.UPDATE_USER_WITH_PROFILE_DATA
         );
 
-        return tokenApiResponse;
+        return updateUserApiResponse;
     }
 }
 
-export default SigninService;
+export default CreateProfileService;
