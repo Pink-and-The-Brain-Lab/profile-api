@@ -5,12 +5,12 @@ import { IPhoneNumberDiponibility } from "../routes/interfaces/phone-number-disp
 class CheckPhoneNumberDisponibility {
     public async execute(data: IPhoneNumberDiponibility) {
         const rabbitMqService = new RabbitMqMessagesProducerService();
-        const updateUserApiResponse = await rabbitMqService.sendDataToAPI<IPhoneNumberDiponibility>(
+        const isPhoneNumberAvailable = await rabbitMqService.sendDataToAPI<IPhoneNumberDiponibility>(
             data,
             RabbitMqQueues.CHECK_PHONE_NUMBER_DISPONIBILITY
         );
 
-        return updateUserApiResponse;
+        return isPhoneNumberAvailable;
     }
 }
 

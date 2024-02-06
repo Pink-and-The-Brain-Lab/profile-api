@@ -9,9 +9,6 @@ class Profile {
     userId: string;
 
     @Column()
-    profileType: string;
-
-    @Column()
     email: string;
 
     @Column()

@@ -17,10 +17,6 @@ export class UserProfile1706998803968 implements MigrationInterface {
                         type: 'varchar',
                         isNullable: false,
                     }, {
-                        name: 'profileType',
-                        type: 'varchar',
-                        isNullable: true,
-                    }, {
                         name: 'email',
                         type: 'varchar',
                         isNullable: true,
@@ -59,7 +55,7 @@ export class UserProfile1706998803968 implements MigrationInterface {
                     }, {
                         name: 'validated',
                         type: 'boolean',
-                        isNullable: false,
+                        isNullable: true,
                         default: false,
                     }
                 ]

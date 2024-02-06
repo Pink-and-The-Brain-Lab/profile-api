@@ -7,7 +7,8 @@ import Profile from "../models/profile.model";
 class CreateProfileService {
     public async execute(userProfile: IProfile) {
         const profileRepository = AppDataSource.getRepository(Profile);
-        const profile = profileRepository.create({ ...userProfile });
+        const existingProfile = await profileRepository.findOneBy({ id: userProfile.id });
+        const profile = !!existingProfile ? { ...userProfile } : profileRepository.create({ ...userProfile });
         await profileRepository.save(profile);
         const rabbitMqService = new RabbitMqMessagesProducerService();
         const updateUserApiResponse = await rabbitMqService.sendDataToAPI<string>(

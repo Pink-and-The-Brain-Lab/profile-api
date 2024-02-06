@@ -1,5 +1,5 @@
 export interface IProfile {
-    profileType?: string;
+    id: string;
     email?: string;
     color?: string;
     image?: string;
