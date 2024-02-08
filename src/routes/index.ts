@@ -7,5 +7,3 @@ routes.use('/auth/create-profile', createProfileRouter);
 routes.use('/auth/check-phone-number-disponibility', checkPhoneNumberDisponibilityRouter);
 routes.use('/auth/check-email-disponibility', checkEmailDisponibilityRouter);
 export default routes;
-
-// need to create image upload and save the ima URL in data base

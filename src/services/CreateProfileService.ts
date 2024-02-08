@@ -1,8 +1,9 @@
 import { AppDataSource } from "../data-source";
-import { RabbitMqMessagesProducerService } from "./RabbitMqMessagesProducerService";
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { IProfile } from "../routes/interfaces/proifle.inteface";
 import Profile from "../models/profile.model";
+import { RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
+import { IValidationTokenData } from "./interfaces/validation-token-data.interface";
 
 class CreateProfileService {
     public async execute(userProfile: IProfile) {
@@ -10,12 +11,9 @@ class CreateProfileService {
         const existingProfile = await profileRepository.findOneBy({ id: userProfile.id });
         const profile = !!existingProfile ? { ...userProfile } : profileRepository.create({ ...userProfile });
         await profileRepository.save(profile);
-        const rabbitMqService = new RabbitMqMessagesProducerService();
-        const updateUserApiResponse = await rabbitMqService.sendDataToAPI<string>(
-            profile.id,
-            RabbitMqQueues.UPDATE_USER_WITH_PROFILE_DATA
-        );
-
+        const connection = new RabbitMqManageConnection('amqp://localhost');
+        const rabbitMqService = new RabbitMqMessagesProducerService(connection);
+        const updateUserApiResponse = await rabbitMqService.sendDataToAPI<string, IValidationTokenData>(profile.id, RabbitMqQueues.UPDATE_USER_WITH_PROFILE_DATA, RabbitMqQueues.PROFILE_RESPONSE_QUEUE);
         return updateUserApiResponse;
     }
 }
