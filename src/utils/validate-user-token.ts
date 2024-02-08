@@ -13,7 +13,6 @@ const validateUserToken = async (request: Request<any>, response?: Response, nex
     const userValidation = await rabbitMqService.sendDataToAPI<string, IValidationTokenData>(token, RabbitMqQueues.VALIDATE_USER_SESSION, RabbitMqQueues.PROFILE_RESPONSE_QUEUE);
     if (next) next();
     return userValidation;
-
 };
 
 export default validateUserToken;
