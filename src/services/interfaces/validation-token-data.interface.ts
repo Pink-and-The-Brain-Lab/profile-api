@@ -6,4 +6,5 @@ export interface IValidationTokenData {
     message?: string;
     statusCode?: number;
     sub?: string;
+    expiredAt?: number
 }
