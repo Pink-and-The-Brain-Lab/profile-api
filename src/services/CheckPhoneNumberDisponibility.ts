@@ -1,7 +1,6 @@
-import { RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
+import { IValidationTokenData, RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { IPhoneNumberDiponibility } from "../routes/interfaces/phone-number-disponibility.inteface";
-import { IValidationTokenData } from "./interfaces/validation-token-data.interface";
 
 class CheckPhoneNumberDisponibility {
     public async execute(data: IPhoneNumberDiponibility) {

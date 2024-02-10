@@ -2,8 +2,7 @@ import { AppDataSource } from "../data-source";
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { IProfile } from "../routes/interfaces/proifle.inteface";
 import Profile from "../models/profile.model";
-import { RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
-import { IValidationTokenData } from "./interfaces/validation-token-data.interface";
+import { IValidationTokenData, RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
 
 class CreateProfileService {
     public async execute(userProfile: IProfile) {

@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response, Router } from "express";
-import AppError from "../errors/AppError";
-import { getTokenData } from "../utils/validate-user-token";
 import { IPhoneNumberDiponibility } from "./interfaces/phone-number-disponibility.inteface";
 import CheckPhoneNumberDisponibility from "../services/CheckPhoneNumberDisponibility";
+import { AppError } from "millez-lib-api";
+import { GET_TOKEN_DATA } from "../constants/get-token-data";
 
 const checkPhoneNumberDisponibilityRouter = Router();
 
 checkPhoneNumberDisponibilityRouter.post('/', async (request: Request<IPhoneNumberDiponibility>, response: Response, next: NextFunction) => {
     try {
-        const userTokenData = await getTokenData(request);
+        const userTokenData = await GET_TOKEN_DATA.get(request);
         const data = {
             ...request.body,
             userId: userTokenData?.sub,
