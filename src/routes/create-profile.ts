@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response, Router } from "express";
 import CreateProfileService from "../services/CreateProfileService"
 import multer from 'multer';
-import { AppError, uploadConfig } from "millez-lib-api";
+import { AppError } from "millez-lib-api";
 import { GET_TOKEN_DATA } from "../constants/get-token-data";
+import { uploadConfig } from "../utils/upload.config";
 const upload = multer(uploadConfig);
-
 const createProfileRouter = Router();
 
 createProfileRouter.post('/', upload.single('image'), async (request: Request, response: Response, next: NextFunction) => {
