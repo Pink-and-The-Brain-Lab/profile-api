@@ -14,7 +14,6 @@ checkEmailDisponibilityRouter.post('/', async (request: Request<IEmailDiponibili
             userId: userTokenData?.sub,
         };
         const isAvailable = await new CheckEmailDisponibility().execute(data);
-        console.log(userTokenData, isAvailable)
         if (!isAvailable)  throw new AppError('API_ERRORS.EMAIL_UNAVAILABLE')
         return response.json({ isAvailable });
     } catch (error) {

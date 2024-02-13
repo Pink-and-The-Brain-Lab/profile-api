@@ -1,5 +1,6 @@
 export interface IProfile {
     id: string;
+    userId?: string;
     email?: string;
     color?: string;
     image?: string;
@@ -9,5 +10,6 @@ export interface IProfile {
     profileTheme?: string;
     logoutTime?: string;
     dateFormat?: string;
+    phoneNumber?: string;
     validated?: boolean;
 }

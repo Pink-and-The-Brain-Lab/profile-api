@@ -1,19 +1,31 @@
 import { AppDataSource } from "../data-source";
-import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
-import { IProfile } from "../routes/interfaces/proifle.inteface";
 import Profile from "../models/profile.model";
-import { IValidationTokenData, RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
+import { AppError } from "millez-lib-api";
+import { ICreateProfile } from "../routes/interfaces/create-profile.interface";
 
 class CreateProfileService {
-    public async execute(userProfile: IProfile) {
-        const profileRepository = AppDataSource.getRepository(Profile);
-        const existingProfile = await profileRepository.findOneBy({ id: userProfile.id });
-        const profile = !!existingProfile ? { ...userProfile } : profileRepository.create({ ...userProfile });
-        await profileRepository.save(profile);
-        const connection = new RabbitMqManageConnection('amqp://localhost');
-        const rabbitMqService = new RabbitMqMessagesProducerService(connection);
-        const updateUserApiResponse = await rabbitMqService.sendDataToAPI<string, IValidationTokenData>(profile.id, RabbitMqQueues.UPDATE_USER_WITH_PROFILE_DATA, RabbitMqQueues.PROFILE_RESPONSE_QUEUE);
-        return updateUserApiResponse;
+    public async execute({ email }: ICreateProfile): Promise<Profile> {
+        try {
+            const profileRepository = AppDataSource.getRepository(Profile);
+            const newProfile = profileRepository.create();
+            newProfile.email = email;
+            await profileRepository.save(newProfile);
+            
+
+            /**
+             * improve this, separate concerns, create a route to create a new profile
+             * create a new route to update profile
+             * create new RabbitMQ message to update user with new profile ID, send UserId and Profile ID
+             * create new RabbitMQ message to update use with phone number, send UserId and phone number
+             * send RabttiMQ message inside route, keep this serve just to manage profile in database
+             * 
+             * URGENT - FIX ERROR CLASS TO RETURN A JSON, NOW IS RETURN [OBJECT OBJECT]
+             */
+
+            return newProfile;
+        } catch (error: any) {
+            throw new AppError(error.message, error.statusCode);
+        }
     }
 }
 
