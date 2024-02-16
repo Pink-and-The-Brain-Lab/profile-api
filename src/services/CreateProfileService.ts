@@ -1,6 +1,6 @@
+import { AppError } from "millez-lib-api";
 import { AppDataSource } from "../data-source";
 import Profile from "../models/profile.model";
-import { AppError } from "millez-lib-api";
 import { ICreateProfile } from "../routes/interfaces/create-profile.interface";
 
 class CreateProfileService {
@@ -24,7 +24,7 @@ class CreateProfileService {
 
             return newProfile;
         } catch (error: any) {
-            throw new AppError(error.message, error.statusCode);
+            throw new AppError(error.message, error.status);
         }
     }
 }

@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { IEmailDiponibility } from "./interfaces/email-disponibility.inteface";
 import CheckEmailDisponibility from "../services/CheckEmailDisponibility";
-import { AppError } from 'millez-lib-api';
 import { GET_TOKEN_DATA } from "../constants/get-token-data";
+import { AppError } from "millez-lib-api/dist/errors/AppError";
 
 const checkEmailDisponibilityRouter = Router();
 

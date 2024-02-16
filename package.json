@@ -39,7 +39,7 @@
     "express": "4.18.2",
     "express-async-errors": "3.1.1",
     "jsonwebtoken": "9.0.1",
-    "millez-lib-api": "0.0.28",
+    "millez-lib-api": "0.0.34",
     "multer": "1.4.5-lts.1",
     "pg": "8.11.1",
     "reflect-metadata": "0.1.13",
