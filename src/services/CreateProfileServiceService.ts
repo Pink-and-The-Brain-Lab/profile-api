@@ -3,7 +3,7 @@ import { AppDataSource } from "../data-source";
 import Profile from "../models/profile.model";
 import { ICreateProfile } from "../routes/interfaces/create-profile.interface";
 
-class CreateProfileService {
+class CreateProfileServiceService {
     public async execute({ email }: ICreateProfile, userId: string): Promise<Profile> {
         try {
             const profileRepository = AppDataSource.getRepository(Profile);
@@ -18,4 +18,4 @@ class CreateProfileService {
     }
 }
 
-export default CreateProfileService;
+export default CreateProfileServiceService;

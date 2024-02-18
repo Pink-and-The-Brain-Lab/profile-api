@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { IEmailDiponibility } from "./interfaces/email-disponibility.inteface";
-import CheckEmailDisponibility from "../services/CheckEmailDisponibility";
+import CheckEmailDisponibilityService from "../services/CheckEmailDisponibilityService";
 import { GET_TOKEN_DATA } from "../constants/get-token-data";
 import { AppError } from "millez-lib-api/dist/errors/AppError";
 
@@ -13,7 +13,7 @@ checkEmailDisponibilityRouter.post('/', async (request: Request<IEmailDiponibili
             ...request.body,
             userId: userTokenData?.sub,
         };
-        const isAvailable = await new CheckEmailDisponibility().execute(data);
+        const isAvailable = await new CheckEmailDisponibilityService().execute(data);
         if (!isAvailable)  throw new AppError('API_ERRORS.EMAIL_UNAVAILABLE')
         return response.json({ isAvailable });
     } catch (error) {

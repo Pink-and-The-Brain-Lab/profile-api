@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
-import CreateProfileService from "../services/CreateProfileService"
+import CreateProfileServiceService from "../services/CreateProfileServiceService"
 import { IValidationTokenData, RabbitMqManageConnection, RabbitMqMessagesProducerService } from "millez-lib-api";
 import { GET_TOKEN_DATA } from "../constants/get-token-data";
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
@@ -11,7 +11,7 @@ createProfileRouter.post('/', async (request: Request, response: Response, next:
     try {
         const userTokenData = await GET_TOKEN_DATA.get(request);
         const userId = userTokenData?.sub || '';
-        const service = await new CreateProfileService().execute(request.body, userId);
+        const service = await new CreateProfileServiceService().execute(request.body, userId);
         const connection = new RabbitMqManageConnection('amqp://localhost');
         const rabbitMqService = new RabbitMqMessagesProducerService(connection);
         const data: IUpdateUserWithSelectedProfile = { userId, profileId: service.id };

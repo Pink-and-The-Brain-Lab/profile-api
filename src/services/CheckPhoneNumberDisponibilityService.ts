@@ -3,7 +3,7 @@ import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { IPhoneNumberDiponibility } from "../routes/interfaces/phone-number-disponibility.inteface";
 import { AppError } from "millez-lib-api/dist/errors/AppError";
 
-class CheckPhoneNumberDisponibility {
+class CheckPhoneNumberDisponibilityService {
     public async execute(data: IPhoneNumberDiponibility) {
         const connection = new RabbitMqManageConnection('amqp://localhost');
         const rabbitMqService = new RabbitMqMessagesProducerService(connection);
@@ -13,4 +13,4 @@ class CheckPhoneNumberDisponibility {
     }
 }
 
-export default CheckPhoneNumberDisponibility;
+export default CheckPhoneNumberDisponibilityService;

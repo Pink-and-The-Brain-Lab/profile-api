@@ -2,7 +2,7 @@ import { IValidationTokenData, RabbitMqManageConnection, RabbitMqMessagesProduce
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { IEmailDiponibility } from "../routes/interfaces/email-disponibility.inteface";
 
-class CheckEmailDisponibility {
+class CheckEmailDisponibilityService {
     public async execute(data: IEmailDiponibility) {
         const connection = new RabbitMqManageConnection('amqp://localhost');
         const rabbitMqService = new RabbitMqMessagesProducerService(connection);
@@ -11,4 +11,4 @@ class CheckEmailDisponibility {
     }
 }
 
-export default CheckEmailDisponibility;
+export default CheckEmailDisponibilityService;

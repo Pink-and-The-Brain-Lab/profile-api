@@ -2,7 +2,7 @@ import { IValidationTokenData, RabbitMqManageConnection, RabbitMqMessagesProduce
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { IPhoneNumberDiponibility } from "../routes/interfaces/phone-number-disponibility.inteface";
 
-class UpdateUserWithPhoneNumber {
+class UpdateUserWithPhoneNumberService {
     public async execute(data: IPhoneNumberDiponibility) {
         const connection = new RabbitMqManageConnection('amqp://localhost');
         const rabbitMqService = new RabbitMqMessagesProducerService(connection);
@@ -10,4 +10,4 @@ class UpdateUserWithPhoneNumber {
     }
 }
 
-export default UpdateUserWithPhoneNumber;
+export default UpdateUserWithPhoneNumberService;
