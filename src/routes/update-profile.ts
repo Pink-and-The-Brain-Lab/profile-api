@@ -3,6 +3,7 @@ import { GET_TOKEN_DATA } from "../constants/get-token-data";
 import UpdateProfileService from "../services/UpdateProfileService";
 import multer from 'multer';
 import { uploadConfig } from "../utils/upload.config";
+import { GenerateNewTokenService } from "../services/GenerateNewTokenService";
 const upload = multer(uploadConfig);
 
 const updateProfileRouter = Router();
@@ -16,6 +17,7 @@ updateProfileRouter.post('/', upload.single('image'), async (request: Request, r
             image: imageUrl,
             userId: userTokenData?.sub,
         };
+        if (data.phoneNumber) await new GenerateNewTokenService().execute(data.email);
         const profile = await new UpdateProfileService().execute(data);
         return response.json({ profile });
     } catch (error) {

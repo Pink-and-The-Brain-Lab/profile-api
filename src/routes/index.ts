@@ -4,10 +4,12 @@ import checkPhoneNumberDisponibilityRouter from "./check-phone-number-disponibil
 import checkEmailDisponibilityRouter from "./check-email-disponibility";
 import setPhoneNumberRouter from "./set-phone-number";
 import updateProfileRouter from "./update-profile";
+import validationTokenRouter from "./validation-token-router.routes";
 const routes = Router();
 routes.use('/auth/create-profile', createProfileRouter);
 routes.use('/auth/check-phone-number-disponibility', checkPhoneNumberDisponibilityRouter);
 routes.use('/auth/set-phone-number', setPhoneNumberRouter);
 routes.use('/auth/check-email-disponibility', checkEmailDisponibilityRouter);
 routes.use('/auth/update-profile', updateProfileRouter);
+routes.use('/auth/token-validation', validationTokenRouter);
 export default routes;
