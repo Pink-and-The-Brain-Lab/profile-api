@@ -37,6 +37,9 @@ class Profile {
 
     @Column()
     validated: boolean;
+
+    @Column()
+    selected: boolean;
 }
 
 export default Profile;

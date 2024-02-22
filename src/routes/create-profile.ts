@@ -5,6 +5,7 @@ import { GET_TOKEN_DATA } from "../constants/get-token-data";
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { IUpdateUserWithSelectedProfile } from "./interfaces/update-user-with-selected-profile.interface";
 import { AppError } from "millez-lib-api/dist/errors/AppError";
+import SetSelectedProfile from "../services/SetSelectedProfile";
 const createProfileRouter = Router();
 
 createProfileRouter.post('/', async (request: Request, response: Response, next: NextFunction) => {
@@ -12,6 +13,7 @@ createProfileRouter.post('/', async (request: Request, response: Response, next:
         const userTokenData = await GET_TOKEN_DATA.get(request);
         const userId = userTokenData?.sub || '';
         const service = await new CreateProfileServiceService().execute(request.body, userId);
+        await new SetSelectedProfile().execute(service.id, userId);
         const connection = new RabbitMqManageConnection('amqp://localhost');
         const rabbitMqService = new RabbitMqMessagesProducerService(connection);
         const data: IUpdateUserWithSelectedProfile = { userId, profileId: service.id };

@@ -3,6 +3,7 @@ import { DataSource } from "typeorm";
 import 'dotenv/config';
 import { UserProfile1706998803968 } from "./database/migrations/1706998803968-UserProfile";
 import Profile from "./models/profile.model";
+import { AddColumnSelected1708562189770 } from "./database/migrations/1708562189770-AddColumnSelected";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -18,6 +19,7 @@ export const AppDataSource = new DataSource({
     ],
     migrations: [
         UserProfile1706998803968,
+        AddColumnSelected1708562189770,
     ],
     subscribers: [],
 })

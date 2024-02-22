@@ -10,6 +10,7 @@ class CreateProfileServiceService {
             const newProfile = profileRepository.create();
             newProfile.email = email;
             newProfile.userId = userId;
+            newProfile.selected = true;
             await profileRepository.save(newProfile);
             return newProfile;
         } catch (error: any) {
