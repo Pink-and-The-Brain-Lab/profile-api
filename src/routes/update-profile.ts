@@ -4,11 +4,11 @@ import UpdateProfileService from "../services/UpdateProfileService";
 import multer from 'multer';
 import { uploadConfig } from "../utils/upload.config";
 import { GenerateNewTokenService } from "../services/GenerateNewTokenService";
+import { VALIDATE_TOKEN } from "../constants/validate-token";
 const upload = multer(uploadConfig);
-
 const updateProfileRouter = Router();
 
-updateProfileRouter.post('/', upload.single('image'), async (request: Request, response: Response, next: NextFunction) => {
+updateProfileRouter.post('/', VALIDATE_TOKEN.validate, upload.single('image'), async (request: Request, response: Response, next: NextFunction) => {
     try {
         const userTokenData = await GET_TOKEN_DATA.get(request);
         const imageUrl = request.file?.filename || '';

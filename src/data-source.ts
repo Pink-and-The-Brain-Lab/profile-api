@@ -4,6 +4,7 @@ import 'dotenv/config';
 import { UserProfile1706998803968 } from "./database/migrations/1706998803968-UserProfile";
 import Profile from "./models/profile.model";
 import { AddColumnSelected1708562189770 } from "./database/migrations/1708562189770-AddColumnSelected";
+import { AddColumnLanguage1709500814057 } from "./database/migrations/1709500814057-AddColumnLanguage";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -20,6 +21,7 @@ export const AppDataSource = new DataSource({
     migrations: [
         UserProfile1706998803968,
         AddColumnSelected1708562189770,
+        AddColumnLanguage1709500814057,
     ],
     subscribers: [],
 })

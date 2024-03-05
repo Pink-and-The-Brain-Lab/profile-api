@@ -2,10 +2,10 @@ import { NextFunction, Request, Response, Router } from "express";
 import { IPhoneNumberDiponibility } from "./interfaces/phone-number-disponibility.inteface";
 import CheckPhoneNumberDisponibilityService from "../services/CheckPhoneNumberDisponibilityService";
 import { GET_TOKEN_DATA } from "../constants/get-token-data";
-
+import { VALIDATE_TOKEN } from "../constants/validate-token";
 const checkPhoneNumberDisponibilityRouter = Router();
 
-checkPhoneNumberDisponibilityRouter.post('/', async (request: Request<IPhoneNumberDiponibility>, response: Response, next: NextFunction) => {
+checkPhoneNumberDisponibilityRouter.post('/', VALIDATE_TOKEN.validate, async (request: Request<IPhoneNumberDiponibility>, response: Response, next: NextFunction) => {
     try {
         const userTokenData = await GET_TOKEN_DATA.get(request);
         const data = {

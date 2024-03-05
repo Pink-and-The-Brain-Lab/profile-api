@@ -3,10 +3,10 @@ import { IPhoneNumberDiponibility } from "./interfaces/phone-number-disponibilit
 import { GET_TOKEN_DATA } from "../constants/get-token-data";
 import UpdateUserWithPhoneNumberService from "../services/UpdateUserWithPhoneNumberService";
 import { AppError } from "millez-lib-api";
-
+import { VALIDATE_TOKEN } from "../constants/validate-token";
 const setPhoneNumberRouter = Router();
 
-setPhoneNumberRouter.post('/', async (request: Request<IPhoneNumberDiponibility>, response: Response, next: NextFunction) => {
+setPhoneNumberRouter.post('/', VALIDATE_TOKEN.validate, async (request: Request<IPhoneNumberDiponibility>, response: Response, next: NextFunction) => {
     try {
         const userTokenData = await GET_TOKEN_DATA.get(request);
         const data = {

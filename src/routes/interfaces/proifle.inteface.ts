@@ -12,4 +12,5 @@ export interface IProfile {
     dateFormat?: string;
     phoneNumber?: string;
     validated?: boolean;
+    language?: string;
 }

@@ -3,10 +3,10 @@ import { IEmailDiponibility } from "./interfaces/email-disponibility.inteface";
 import CheckEmailDisponibilityService from "../services/CheckEmailDisponibilityService";
 import { GET_TOKEN_DATA } from "../constants/get-token-data";
 import { AppError } from "millez-lib-api/dist/errors/AppError";
-
+import { VALIDATE_TOKEN } from "../constants/validate-token";
 const checkEmailDisponibilityRouter = Router();
 
-checkEmailDisponibilityRouter.post('/', async (request: Request<IEmailDiponibility>, response: Response, next: NextFunction) => {
+checkEmailDisponibilityRouter.post('/', VALIDATE_TOKEN.validate, async (request: Request<IEmailDiponibility>, response: Response, next: NextFunction) => {
     try {
         const userTokenData = await GET_TOKEN_DATA.get(request);
         const data = {

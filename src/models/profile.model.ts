@@ -40,6 +40,9 @@ class Profile {
 
     @Column()
     selected: boolean;
+
+    @Column()
+    language: string;
 }
 
 export default Profile;

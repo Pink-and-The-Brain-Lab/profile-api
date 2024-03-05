@@ -6,9 +6,10 @@ import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 import { IUpdateUserWithSelectedProfile } from "./interfaces/update-user-with-selected-profile.interface";
 import { AppError } from "millez-lib-api/dist/errors/AppError";
 import SetSelectedProfile from "../services/SetSelectedProfile";
+import { VALIDATE_TOKEN } from "../constants/validate-token";
 const createProfileRouter = Router();
 
-createProfileRouter.post('/', async (request: Request, response: Response, next: NextFunction) => {
+createProfileRouter.post('/', VALIDATE_TOKEN.validate, async (request: Request, response: Response, next: NextFunction) => {
     try {
         const userTokenData = await GET_TOKEN_DATA.get(request);
         const userId = userTokenData?.sub || '';

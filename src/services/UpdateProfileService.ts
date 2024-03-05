@@ -18,6 +18,7 @@ class UpdateProfileService {
             profile.logoutTime = data.logoutTime || profile.logoutTime;
             profile.dateFormat = data.dateFormat || profile.dateFormat;
             profile.validated = !!data.validated || profile.validated;
+            profile.language = data.language || profile.language;
             profileRepository.save(profile);
             return profile;
         } catch (error: any) {
