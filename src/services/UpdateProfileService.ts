@@ -2,6 +2,7 @@ import { AppError } from "millez-lib-api";
 import { AppDataSource } from "../data-source";
 import Profile from "../models/profile.model";
 import { IProfile } from "../routes/interfaces/proifle.inteface";
+import EmitProfileUpdateService from "./EmitProfileUpdateService";
 
 class UpdateProfileService {
     public async execute(data: IProfile): Promise<Profile> {
@@ -19,7 +20,8 @@ class UpdateProfileService {
             profile.dateFormat = data.dateFormat || profile.dateFormat;
             profile.validated = !!data.validated || profile.validated;
             profile.language = data.language || profile.language;
-            profileRepository.save(profile);
+            await profileRepository.save(profile);
+            await new EmitProfileUpdateService().execute(data.userId || '');
             return profile;
         } catch (error: any) {
             throw new AppError(error.message, error.status);

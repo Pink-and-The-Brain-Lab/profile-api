@@ -13,4 +13,5 @@ export interface IProfile {
     phoneNumber?: string;
     validated?: boolean;
     language?: string;
+    createdat?: number;
 }

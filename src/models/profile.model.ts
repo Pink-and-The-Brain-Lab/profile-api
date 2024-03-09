@@ -43,6 +43,9 @@ class Profile {
 
     @Column()
     language: string;
+
+    @Column()
+    createdat: number;
 }
 
 export default Profile;
