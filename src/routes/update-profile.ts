@@ -5,6 +5,7 @@ import multer from 'multer';
 import { uploadConfig } from "../utils/upload.config";
 import { GenerateNewTokenService } from "../services/GenerateNewTokenService";
 import { VALIDATE_TOKEN } from "../constants/validate-token";
+import GetProfileEmailService from "../services/GetProfileEmailService";
 const upload = multer(uploadConfig);
 const updateProfileRouter = Router();
 
@@ -17,6 +18,10 @@ updateProfileRouter.post('/', VALIDATE_TOKEN.validate, upload.single('image'), a
             image: imageUrl,
             userId: userTokenData?.sub,
         };
+        if (!data.email) {
+            const profileEmail = await new GetProfileEmailService().execute(data.id);
+            data.email = profileEmail;
+        }
         if (data.phoneNumber) await new GenerateNewTokenService().execute(data.email);
         const profile = await new UpdateProfileService().execute(data);
         return response.json({ profile });
