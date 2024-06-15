@@ -5,6 +5,7 @@ build/
 temp/
 uploads/
 .env
+.env.test
 
 coverage/*
 
