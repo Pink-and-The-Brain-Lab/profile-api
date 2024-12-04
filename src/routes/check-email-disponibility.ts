@@ -9,9 +9,11 @@ const checkEmailDisponibilityRouter = Router();
 checkEmailDisponibilityRouter.post('/', VALIDATE_TOKEN.validate, async (request: Request<IEmailDiponibility>, response: Response, next: NextFunction) => {
     try {
         const userTokenData = await GET_TOKEN_DATA.get(request);
+        if (!userTokenData || !userTokenData.sub) throw new AppError('USER_NOT_FOUND', 404);
+        const userId = userTokenData.sub;
         const data = {
             ...request.body,
-            userId: userTokenData?.sub,
+            userId,
         };
         const isAvailable = await new CheckEmailDisponibilityService().execute(data);
         if (!isAvailable)  throw new AppError('API_ERRORS.EMAIL_UNAVAILABLE')
