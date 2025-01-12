@@ -11,7 +11,7 @@ class EmitProfileUpdateService {
             const profiles = await profileRepository.findBy({ userId });
             if (!profiles || !profiles.length) return;
             const reorderedProfiles = orderDataBy(profiles, 'createdat');
-            socketConnection?.emit('profiles', reorderedProfiles);
+            socketConnection.emit('profiles', reorderedProfiles);
         } catch (error: any) {
             throw new AppError(error.message, error.status);
         }
