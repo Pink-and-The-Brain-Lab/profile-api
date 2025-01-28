@@ -1,7 +1,7 @@
 import { AppError, RabbitMqMessagesProducerService } from "millez-lib-api";
 import { AppDataSource } from "../data-source";
 import EmitProfileUpdateService from "./EmitProfileUpdateService";
-import SetSelectedProfile from "./SetSelectedProfile";
+import SetSelectedProfileService from "./SetSelectedProfileService";
 import { RabbitMqQueues } from "../enums/rabbitmq-queues.enum";
 
 jest.mock("../data-source", () => ({
@@ -40,7 +40,7 @@ describe("SetSelectedProfile", () => {
     });
 
     it("should set the selected profile and return true", async () => {
-        const setSelectedProfile = new SetSelectedProfile();
+        const setSelectedProfile = new SetSelectedProfileService();
         const userId = "user123";
         const profileId = "profile123";
         const profiles = [
@@ -65,7 +65,7 @@ describe("SetSelectedProfile", () => {
     });
 
     it("should throw an error if no profiles are found", async () => {
-        const setSelectedProfile = new SetSelectedProfile();
+        const setSelectedProfile = new SetSelectedProfileService();
         const userId = "user123";
         const profileId = "profile123";
         mockProfileRepository.findBy.mockResolvedValue([]);
@@ -76,7 +76,7 @@ describe("SetSelectedProfile", () => {
     });
 
     it("should throw an error if RabbitMqMessagesProducerService returns an error", async () => {
-        const setSelectedProfile = new SetSelectedProfile();
+        const setSelectedProfile = new SetSelectedProfileService();
         const userId = "user123";
         const profileId = "profile123";
         const profiles = [
@@ -95,7 +95,7 @@ describe("SetSelectedProfile", () => {
     });
 
     it("should throw an error if EmitProfileUpdateService fails", async () => {
-        const setSelectedProfile = new SetSelectedProfile();
+        const setSelectedProfile = new SetSelectedProfileService();
         const userId = "user123";
         const profileId = "profile123";
         const profiles = [
