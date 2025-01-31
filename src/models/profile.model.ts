@@ -5,46 +5,46 @@ class Profile {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column()
+    @Column('text', { nullable: false })
     userId: string;
 
-    @Column()
+    @Column('text', { nullable: true })
     email: string;
 
-    @Column()
+    @Column('text', { nullable: true })
     color: string;
 
-    @Column()
+    @Column('text', { nullable: true })
     image: string;
 
-    @Column()
+    @Column('text', { nullable: true })
     chosenName: string;
 
-    @Column()
+    @Column('text', { nullable: true })
     profileName: string;
 
-    @Column()
+    @Column('text', { nullable: true })
     profileVisibility: string;
 
-    @Column()
+    @Column('text', { nullable: true })
     profileTheme: string;
 
-    @Column()
+    @Column('text', { nullable: true })
     logoutTime: string;
 
-    @Column()
+    @Column('text', { nullable: true })
     dateFormat: string;
 
-    @Column()
+    @Column('boolean', { nullable: true })
     validated: boolean;
 
-    @Column()
+    @Column('boolean', { nullable: true })
     selected: boolean;
 
-    @Column()
+    @Column('text', { nullable: true })
     language: string;
 
-    @Column()
+    @Column('float8', { nullable: true })
     createdat: number;
 }
 
